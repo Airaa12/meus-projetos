@@ -1,0 +1,58 @@
+
+escola =[
+
+     {"nome":"ana","idade": "14","nota": "10"},
+     {"nome":"luiza","idade": "13", "nota": "9" },
+     {"nome":"paulo" ,"idade": "16","nota": "5"}
+ ],
+[    {" nome":"felipe", "idade": "17", "nota": "4"},
+     {"nome":"malu","idade": "13", "nota": "9" },
+     {"nome":"pedro" ,"idade": "16","nota": "5"}
+ ]
+soma1 = 0
+for aluno in escola[0]:
+    soma1 += int(aluno["nota"])
+media1 = soma1 / len(escola[0])
+
+soma2 = 0
+for aluno in escola[0]:
+    soma2 += int(aluno["nota"])
+media2 = soma2 / len(escola[0])
+while True :
+        print("=== Menu da Escola ===")
+        print("[1]-Mostrar boletim da 1ª turma")
+        print("[2]-Mostrar boletim da 2ª turma")
+        print("[3]-Mostrar média das turmas")
+        print("[4]- cadastrar notas")
+        print("[5]-Sair")
+        
+        escolha = input("Escolha uma opção: ")
+        
+
+        if escolha == "1":
+           print("alunos da primera turma:")
+           for aluno in escola [0] :
+                print(f"{aluno['nome']} - Idade: {aluno['idade']} - Nota: {aluno['nota']}")
+                break
+
+        elif escolha == "2":
+            print("aluno da segunda turma:")
+            for aluno in escola [0] :
+                print(f"{aluno['nome']} - Idade: {aluno['idade']} - Nota: {aluno['nota']}")
+                break
+           
+        elif escolha == "3":
+            print("Opção 3: Mostrar média das turmas")
+
+            print(f"Média da primeira turma: {media1:.2f}")
+            print(f"Média da segunda turma: {media2:.2f}")
+        elif escolha == "4":
+            print("Saindo... Até mais!")
+            break
+        else:
+            print("Opção inválida! Tente novamente.")
+            break
+
+
+
+
