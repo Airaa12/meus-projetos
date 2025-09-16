@@ -1,0 +1,88 @@
+import inquirer
+
+from colorama import Fore,Back, Style, init 
+init()
+
+turma = []  
+
+def cadastrar_aluno():
+    nome = input("Nome do aluno: ")
+    matricula = input("Matrícula: ")
+    aluno = {"nome": nome, "matricula": matricula, "notas": []}
+    turma.append(aluno)
+    print("Aluno cadastrado com sucesso!\n")
+
+def lancar_notas():
+    if not turma:
+        print("Nenhum aluno cadastrado!\n")
+        return
+    matricula = input("Digite a matrícula do aluno: ")
+    for aluno in turma:
+        if aluno["matricula"] == matricula:
+            qtd = int(input("Quantas notas deseja lançar? "))
+            aluno["notas"] = []
+            for i in range(qtd):
+                nota = float(input(f"Digite a {i+1}ª nota: "))
+                aluno["notas"].append(nota)
+            print("Notas lançadas com sucesso!\n")
+            return
+    print("Aluno não encontrado!\n")
+
+def calcular_media(aluno):
+    if aluno["notas"]:
+        return sum(aluno["notas"]) / len(aluno["notas"])
+    return 0
+
+def mostrar_situacao():
+    if not turma:
+        print("Nenhum aluno cadastrado!\n")
+        return
+    for aluno in turma:
+        media = calcular_media(aluno)
+        situacao = "Aprovado" if media >= 7 else "Reprovado"
+        print(f"Aluno: {aluno['nome']} | Média: {media:.2f} | Situação: {situacao}")
+    print()
+
+def gerar_boletim():
+    if not turma:
+        print("Nenhum aluno cadastrado!\n")
+        return
+    print("\n=== Boletim da Turma ===")
+    for aluno in turma:
+        notas_str = ",".join([str(n) for n in aluno["notas"]]) if aluno["notas"] else "Sem notas"
+        media = calcular_media(aluno)
+
+        print(f"\nNome: {aluno['nome']}")
+        print(f"Matrícula: {aluno['matricula']}")
+        print(f"Notas: {notas_str}")
+        print(f"Média: {media:.2f}")
+        if media >= 7:
+            print(Fore.GREEN+"Aprovado") 
+        else:
+            print(Fore.RED+"Reprovado")
+    print()
+1
+# ------------------ MENU PRINCIPAL ------------------
+while True:
+    print(Fore.RED+"=== SISTEMA DE NOTAS DA TURMA ===")
+    print(Fore.MAGENTA+"1. Cadastrar aluno")
+    print(Fore.MAGENTA+"2. Lançar notas")
+    print(Fore.MAGENTA+"3. Mostrar aprovados/reprovados")
+    print(Fore.MAGENTA+"4. Gerar boletim completo")
+    print(Fore.MAGENTA+"5. Sair")
+
+    opcao = inquirer.prompt([inquirer])
+
+    if opcao == "1":
+        cadastrar_aluno()
+    elif opcao == "2":
+        lancar_notas()
+    elif opcao == "3":
+        mostrar_situacao()
+    elif opcao == "4":
+        gerar_boletim()
+    elif opcao == "5":
+        print("Saindo do sistema...")
+        break
+    else:
+        print("Opção inválida!\n")
