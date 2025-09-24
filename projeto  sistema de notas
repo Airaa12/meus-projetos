@@ -1,0 +1,88 @@
+turma = {}  
+
+def cadastrar_aluno():
+    nome = input("Nome do aluno: ")
+    if nome in turma:
+        print("Aluno já cadastrado!")
+    else:
+        turma[nome] = []
+        print("Aluno cadastrado com sucesso!")
+
+def inserir_notas():
+    nome = input("Nome do aluno: ")
+    if nome not in turma:
+        print("Aluno não encontrado!")
+    else:
+        notas = []
+        qtd = int(input("Quantas notas deseja lançar? "))
+        for i in range(qtd):
+            nota = float(input(f"Digite a nota {i+1}: "))
+            notas.append(nota)
+        turma[nome] = notas
+        print("Notas registradas com sucesso!")
+
+def calcular_media(notas):
+    if len(notas) == 0:
+        return 0
+    soma = 0
+    for n in notas:
+        soma += n
+    return soma / len(notas)
+
+def mostrar_boletim():
+    print("\n=== BOLETIM DA TURMA ===")
+    for aluno in turma:
+        notas = turma[aluno]
+        media = calcular_media(notas)
+        if media >= 7:
+            status = "Aprovado"
+        else:
+            status = "Reprovado"
+        print(f"{aluno} - Notas: {notas} - Média: {media:.2f} - {status}")
+    print("========================\n")
+
+def mostrar_aprovados():
+    print("\n--- Aprovados ---")
+    for aluno in turma:
+        if calcular_media(turma[aluno]) >= 7:
+            print(aluno)
+    print("-----------------\n")
+
+def mostrar_reprovados():
+    print("\n--- Reprovados ---")
+    for aluno in turma:
+        if calcular_media(turma[aluno]) < 7:
+            print(aluno)
+    print("------------------\n")
+
+def menu():
+    while True:
+        print("""
+===== MENU =====
+1 - Cadastrar aluno
+2 - Inserir notas
+3 - Mostrar boletim
+4 - Mostrar aprovados
+5 - Mostrar reprovados
+0 - Sair
+================
+""")
+        opcao = input("Escolha uma opção: ")
+
+        if opcao == "1":
+            cadastrar_aluno()
+        elif opcao == "2":
+            inserir_notas()
+        elif opcao == "3":
+            mostrar_boletim()
+        elif opcao == "4":
+            mostrar_aprovados()
+        elif opcao == "5":
+            mostrar_reprovados()
+        elif opcao == "0":
+            print("Encerrando...")
+            break
+        else:
+            print("Opção inválida!")
+
+menu()
